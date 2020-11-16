@@ -49,11 +49,7 @@
 | ------ | ------ | ----------- |
 |Column|Type|Options|
 |zipcode|string|null:false|
-|prefecture|string|null:false|
-|city|string|null:false|
-|block|string|null:false|
-|phone|string|null:false|
-|purchase_id|references|null:false,foreign_key:true|
+
 
 ### Association
 - belongs_to :purchase
