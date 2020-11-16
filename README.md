@@ -1,19 +1,23 @@
-## Products
-|firstname|string|null:false|
-|lastname|string|null:false|
-|kana|string|null:false|
-|nickname|string|null:false|
-|email|string|null:false,unique:true|
-|birthday|string|null:false|
-|password|string|null:false|
-|product_id|string|null:false,foreign_key:true|
-|purchase_id|string|null:false,foreign_key:true|
+## Users
+| Column      | Type   | Options|
+| ----------  | ------ | -----------                |
+| firstname   | string | null:false                 |
+| lastname    | string | null:false                 |
+| kana        | string | null:false                 |
+| nickname    | string | null:false                 |
+| email       | string | null:false,unique:true     |
+| birthday    | string | null:false                 |
+| password    | string | null:false                 |
+| product_id  | string | null:false,foreign_key:true|
+| purchase_id | string | null:false,foreign_key:true|
+
 ### Association
 - has_many :product
 - has_many :purchase
 
 ## Products
 |Column|Type|Options|
+| ------ | ------ | ----------- |
 |name|string|null:false|
 |description|string|null:false|
 |status|string|null:false|
