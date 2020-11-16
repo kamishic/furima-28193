@@ -29,20 +29,24 @@
 |user_id|references|null:false,foreign_key:true|
 |purchase_id|references|null:false,foreign_key:true|
 |(image provided by ActiveStorage)||null:false|
+
 ### Association
 - belongs_to :user
 - has_one :purchase
 
 ## Purchases
 |Column|Type|Options|
+| ------ | ------ | ----------- |
 |user_id|references|null:false,foreign_key:true|
 |ship_id|references|null:false,foreign_key:true|
+
 ### Association
 - belongs_to :user
 - belongs_to :product
 - has_one :ship
 
 ## Ships
+| ------ | ------ | ----------- |
 |Column|Type|Options|
 |zipcode|string|null:false|
 |prefecture|string|null:false|
@@ -50,5 +54,6 @@
 |block|string|null:false|
 |phone|string|null:false|
 |purchase_id|references|null:false,foreign_key:true|
+
 ### Association
 - belongs_to :purchase
