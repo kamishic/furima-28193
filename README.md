@@ -49,7 +49,7 @@
 |prefecture_id|integer|null:false|
 |city|string|null:false|
 |block|string|null:false|
-|building|string|null:true|
+|building|string||
 |phone|string|null:false|
 |purchase|references|null:false,foreign_key:true|
 
