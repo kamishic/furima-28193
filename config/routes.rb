@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  get "starts", to:"starts#index"
+  devise_for :users
+  resources :products,only: :index
+  root 'products#index'
 end
