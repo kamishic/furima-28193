@@ -3,32 +3,29 @@
 | ----------  | ------ | -----------                |
 | firstname   | string | null:false                 |
 | lastname    | string | null:false                 |
-| kana        | string | null:false                 |
+| kana_firstname        | string | null:false                 |
+| kana_lastname        | string | null:false                 |
 | nickname    | string | null:false                 |
 | email       | string | null:false,unique:true     |
-| birthday    | string | null:false                 |
+| birthday    | date | null:false                 |
 | password    | string | null:false                 |
-| product_id  | references | null:false,foreign_key:true|
-| purchase_id | references | null:false,foreign_key:true|
 
 ### Association
-- has_many :product
-- has_many :purchase
+- has_many :products
+- has_many :purchases
 
 ## Products
 |Column|Type|Options|
 | ------ | ------ | ----------- |
 |name|string|null:false|
-|description|string|null:false|
+|description|text|null:false|
 |status|string|null:false|
 |category|string|null:false|
 |cost_ship|string|null:false|
 |day_to_ship|string|null:false|
 |area_from_ship|string|null:false|
 |price|integer|null:false|
-|user_id|references|null:false,foreign_key:true|
-|purchase_id|references|null:false,foreign_key:true|
-|(image provided by ActiveStorage)||null:false|
+|user|references|null:false,foreign_key:true|
 
 ### Association
 - belongs_to :user
@@ -37,8 +34,7 @@
 ## Purchases
 |Column|Type|Options|
 | ------ | ------ | ----------- |
-|user_id|references|null:false,foreign_key:true|
-|ship_id|references|null:false,foreign_key:true|
+|user|references|null:false,foreign_key:true|
 
 ### Association
 - belongs_to :user
@@ -49,11 +45,12 @@
 |Column|Type|Options|
 | ------ | ------ | ----------- |
 |zipcode|string|null:false|
-|prefecture|string|null:false|
+|prefecture_id|integer|null:false|
 |city|string|null:false|
 |block|string|null:false|
+|building|string|null:true|
 |phone|string|null:false|
-|purchase_id|references|null:false,foreign_key:true|
+|purchase|references|null:false,foreign_key:true|
 
 ### Association
 - belongs_to :purchase
