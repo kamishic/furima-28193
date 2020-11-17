@@ -8,7 +8,7 @@
 | nickname    | string | null:false                 |
 | email       | string | null:false,unique:true     |
 | birthday    | date | null:false                 |
-| password    | string | null:false                 |
+| encrypted_password | string | null:false                 |
 
 ### Association
 - has_many :products
