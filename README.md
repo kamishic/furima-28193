@@ -19,11 +19,11 @@
 | ------ | ------ | ----------- |
 |name|string|null:false|
 |description|text|null:false|
-|status|string|null:false|
-|category|string|null:false|
-|cost_ship|string|null:false|
-|day_to_ship|string|null:false|
-|area_from_ship|string|null:false|
+|status_id|integer|null:false|
+|category_id|integer|null:false|
+|cost_ship_id|integer|null:false|
+|day_to_ship_id|integer|null:false|
+|area_from_ship_id|integer|null:false|
 |price|integer|null:false|
 |user|references|null:false,foreign_key:true|
 
