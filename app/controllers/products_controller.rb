@@ -22,6 +22,20 @@ class ProductsController < ApplicationController
     end
   end
 
+
+  def edit
+    @product = Product.includes(:user).find(params[:id])
+  end
+
+  def update
+    @product = Product.includes(:user).find(params[:id])
+    if @product.update(product_params)
+      redirect_to product_path(params[:id])
+    else
+      render :edit
+    end
+  end
+
   private
 
   def product_params
