@@ -4,9 +4,6 @@ RSpec.describe Product, type: :model do
   before do
     @product = FactoryBot.build(:product)
     @product.image = fixture_file_upload('/files/test_image.gif')
-    @user = FactoryBot.build(:user)
-    @user.save
-    @product.user_id = @user.id
   end
   describe '商品出品機能' do
     context '正常ケース' do
@@ -31,42 +28,42 @@ RSpec.describe Product, type: :model do
         expect(@product.errors.full_messages).to include('Description ：商品の説明をご入力ください。')
       end
       it 'category_idが未入力だと登録できない' do
-        @product.category_id = '0'
+        @product.category_id = 0
         @product.valid?
         expect(@product.errors.full_messages).to include('Category ：カテゴリーをご入力ください。')
       end
       it 'status_idが未入力だと登録できない' do
-        @product.status_id = '0'
+        @product.status_id = 0
         @product.valid?
         expect(@product.errors.full_messages).to include('Status ：商品の状態をご入力ください。')
       end
       it 'cost_ship_idが未入力だと登録できない' do
-        @product.cost_ship_id = '0'
+        @product.cost_ship_id = 0
         @product.valid?
         expect(@product.errors.full_messages).to include('Cost ship ：配送料の負担をご入力ください。')
       end
       it 'day_to_ship_idが未入力だと登録できない' do
-        @product.day_to_ship_id = '0'
+        @product.day_to_ship_id = 0
         @product.valid?
         expect(@product.errors.full_messages).to include('Day to ship ：発送までの日数をご入力ください。')
       end
       it 'area_from_ship_idが未入力だと登録できない' do
-        @product.area_from_ship_id = '0'
+        @product.area_from_ship_id = 0
         @product.valid?
         expect(@product.errors.full_messages).to include('Area from ship ：発送元の地域をご入力ください。')
       end
       it 'priceが未入力だと登録できない' do
-        @product.price = '0'
+        @product.price = ''
         @product.valid?
         expect(@product.errors.full_messages).to include('Price ：価格は300~9999999の範囲でご入力ください')
       end
       it 'priceが300未満だと登録できない' do
-        @product.price = '299'
+        @product.price = 299
         @product.valid?
         expect(@product.errors.full_messages).to include('Price ：価格は300~9999999の範囲でご入力ください')
       end
       it 'priceが9999999より大きいと登録できない' do
-        @product.price = '10000000'
+        @product.price = 10_000_000
         @product.valid?
         expect(@product.errors.full_messages).to include('Price ：価格は300~9999999の範囲でご入力ください')
       end
