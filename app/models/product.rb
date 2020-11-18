@@ -18,11 +18,10 @@ class Product < ApplicationRecord
   validates :area_from_ship_id, numericality: { other_than: 0 ,message: "：発送元の地域をご入力ください。"} 
   validates :day_to_ship_id, numericality: { other_than: 0 ,message: "：発送までの日数をご入力ください。"} 
 
-  validates :price, presence: {message: "：出品画像を添付してください。"}
-
-  VALID_PRICE_REGEX =/\A[0-9]+\z/
+  validates :price, presence: {message: "：価格をご入力ください。"}
+  VALID_PRICE_REGEX = /\A[0-9]+\z/i
   validates :price, format: { with: VALID_PRICE_REGEX, message: '：価格は半角数字でご入力ください。' }
-  validates :price, numericality: { greater_than_or_equal_to:300,message:"価格は300~9999999の範囲でご入力ください" }
-  validates :price, numericality: { less_than_or_equal_to: 9999999,message:"価格は300~9999999の範囲でご入力ください" }
+  validates :price, numericality: { greater_than_or_equal_to:300,message:'：価格は300~9999999の範囲でご入力ください' }
+  validates :price, numericality: { less_than_or_equal_to: 9999999,message:'：価格は300~9999999の範囲でご入力ください' }
 
 end
