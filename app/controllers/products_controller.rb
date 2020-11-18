@@ -5,6 +5,10 @@ class ProductsController < ApplicationController
     @products = Product.order(created_at: "DESC")
   end
 
+  def show
+    @product = Product.includes(:user).find(params[:id])
+  end
+
   def new
     @product = Product.new
   end
