@@ -22,7 +22,6 @@ class ProductsController < ApplicationController
     end
   end
 
-
   def edit
     @product = Product.includes(:user).find(params[:id])
   end
