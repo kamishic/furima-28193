@@ -7,6 +7,6 @@ FactoryBot.define do
     cost_ship_id { '1' }
     day_to_ship_id { '1' }
     area_from_ship_id { '1' }
-    price {300}
+    price { 300 }
   end
 end
