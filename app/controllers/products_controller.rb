@@ -24,6 +24,7 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.includes(:user).find(params[:id])
+    redirect_to product_path(@product.id) if @product.user_id != current_user.id
   end
 
   def update
