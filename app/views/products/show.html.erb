@@ -29,9 +29,9 @@
         <p class='or-text'>or</p>
         <%= link_to '削除', product_path(@product.id),method: :delete, class:'item-destroy' %>
       <% else %>
-        <%# if !@product.purchase %>
-          <%#= link_to '購入画面に進む', "#" ,class:"item-red-btn"%>
-        <%# end %>
+        <% if !@product.purchase %>
+          <%= link_to '購入画面に進む', product_purchases_path(@product.id) ,class:"item-red-btn"%>
+        <% end %>
       <% end %>
     <% end %>
 
