@@ -4,11 +4,8 @@ const x =  async (card) => {
     if (status == 200) {
       const token = response.id;
       const renderDom = document.getElementById("charge-form");
-      const tokenObj = `<input value=${token} name='token'>`;
+      const tokenObj = `<input value=${token} name='token' type='hidden'>`;
       renderDom.insertAdjacentHTML("beforeend", tokenObj);
-      debugger;
-    } else {
-      alert(status);
     }
     document.getElementById("card-number").removeAttribute("name");
     document.getElementById("card-cvc").removeAttribute("name");

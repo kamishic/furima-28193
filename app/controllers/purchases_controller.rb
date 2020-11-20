@@ -9,7 +9,7 @@ class PurchasesController < ApplicationController
     puts("-----------------params")
     puts(params)
 
-    @purchase_ship = PurchaseShip.new
+    @purchase_ship = PurchaseShip.new(token: "")
     @purchase_ship.save(purchase_params,ship_params,payjp_params)
     render :index
   end
