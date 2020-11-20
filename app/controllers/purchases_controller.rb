@@ -1,31 +1,28 @@
 class PurchasesController < ApplicationController
+  before_action :authenticate_user!, only: [:index, :create]
   before_action :set_product, only: [:index, :create]
 
   def index
+    if @product.user.id == current_user.id
+      redirect_to root_path
+    end
     @purchase_ship = PurchaseShip.new
   end
 
   def create
-    puts("-----------------params")
-    puts(params)
-
-    @purchase_ship = PurchaseShip.new(token: "")
-    @purchase_ship.save(purchase_params,ship_params,payjp_params)
-    render :index
+    @purchase_ship = PurchaseShip.new(purchase_ship_params)
+    if @purchase_ship.save(purchase_ship_params)
+      redirect_to root_path
+    else
+      render :index
+    end
   end
 
   private 
   def set_product
     @product = Product.includes(:user).find(params[:product_id])
   end
-  def ship_params
-    params.permit(:zipcode, :prefecture_id, :city,:block,:building,:phone)
+  def purchase_ship_params
+    params.permit(:zipcode, :prefecture_id, :city,:block,:building,:phone,:product_id,:token).merge(user_id: current_user.id,price: @product.price)
   end
-  def purchase_params
-    params.permit(:product_id).merge(user_id: current_user.id)
-  end
-  def payjp_params
-    params.permit(:token).merge(price: @product.price)
-  end
-
 end

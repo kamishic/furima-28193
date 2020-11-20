@@ -3,27 +3,43 @@ class PurchaseShip
   attr_accessor :zipcode,:prefecture_id,:city,:block,:building,:phone,
                 :user_id,:product_id,:token,:price
 
-  validates :zipcode, presence: { message: '：aaa郵便番号をご入力ください。' }
+  
+  validates :zipcode, presence: { message: '：郵便番号をご入力ください。' }
+  VALID_ZIPCODE_REGEX = /\A\d{3}[-]\d{4}\z/
+  validates :zipcode, format: { with: VALID_ZIPCODE_REGEX, message: '：郵便番号はxxx-xxxxの形でご入力ください。' }
+
   validates :prefecture_id, numericality: { other_than: 0, message: '：都道府県をご入力ください。' }
   validates :city, presence: { message: '：市区町村をご入力ください。' }
   validates :block, presence: { message: '：番地をご入力ください。' }
+
   validates :phone, presence: { message: '：電話番号をご入力ください。' }
+  VALID_PHONE_REGEX = /\A\d{1,11}\z/
+  validates :phone, format: { with: VALID_PHONE_REGEX, message: '：電話番号は11桁以内の半角数字でご入力ください。' }
 
-  validates :token, presence: { message: '：トークンが未生成です。' }
+  validates :token, presence: { message: '：正しいクレジットカード情報をご入力ください。' }
+  
+  def save(params)
 
-  def save(purchase_params,ship_params,payjp_params)
     return if invalid?
+    
+    purchase_params = params.slice(:user_id,:product_id)
+    ship_params = params.slice(:zipcode,:prefecture_id,:city,:block,:building,:phone)
+    payjp_params = params.slice(:token,:price)
 
-    purchase = Purchase.create(purchase_params)
-    Ship.create(ship_params.merge(purchase_id: purchase.id))
+    purchase = Purchase.new(purchase_params)
+    purchase.save
 
-    Payjp.api_key = "sk_test_b729897a0885c3a373351701"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
-    Payjp::Charge.create(
-      amount: payjp_params[:price],  # 商品の値段
-      card: payjp_params[:token],    # カードトークン
-      currency: 'jpy'                 # 通貨の種類（日本円）
-    )
-
+    ship = Ship.new(ship_params.merge(purchase_id: purchase.id))
+    if ship.save
+      Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+      Payjp::Charge.create(
+        amount: payjp_params[:price],  # 商品の値段
+        card: payjp_params[:token],    # カードトークン
+        currency: 'jpy'                 # 通貨の種類（日本円）
+        )
+      return true
+    else
+      return false
+    end    
   end
-
 end

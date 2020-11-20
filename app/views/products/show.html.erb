@@ -8,11 +8,11 @@
     </h2>
     <div class='item-img-content'>
       <%= image_tag @product.image ,class:"item-box-img" %>
-      <%# if @product.purchase %>
-      <%#   <div class='sold-out'>
+      <% if @product.purchase %>  
+        <div class='sold-out'>
           <span>Sold Out!!</span>
-        </div> #%>
-      <%# end %>
+        </div>
+      <% end %>
     </div>
     <div class="item-price-box">
       <span class="item-price">
