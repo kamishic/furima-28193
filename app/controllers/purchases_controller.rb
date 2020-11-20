@@ -3,9 +3,7 @@ class PurchasesController < ApplicationController
   before_action :set_product, only: [:index, :create]
 
   def index
-    if @product.user.id == current_user.id
-      redirect_to root_path
-    end
+    redirect_to root_path if @product.user.id == current_user.id
     @purchase_ship = PurchaseShip.new
   end
 
@@ -18,11 +16,13 @@ class PurchasesController < ApplicationController
     end
   end
 
-  private 
+  private
+
   def set_product
     @product = Product.includes(:user).find(params[:product_id])
   end
+
   def purchase_ship_params
-    params.permit(:zipcode, :prefecture_id, :city,:block,:building,:phone,:product_id,:token).merge(user_id: current_user.id,price: @product.price)
+    params.permit(:zipcode, :prefecture_id, :city, :block, :building, :phone, :product_id, :token).merge(user_id: current_user.id, price: @product.price)
   end
 end
