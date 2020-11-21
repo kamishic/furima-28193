@@ -28,8 +28,6 @@ class PurchasesController < ApplicationController
   end
 
   def soldout?
-    if @product.purchase
-      redirect_to root_path
-    end
+    redirect_to root_path if @product.purchase
   end
 end

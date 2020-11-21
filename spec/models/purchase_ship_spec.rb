@@ -9,17 +9,21 @@ RSpec.describe PurchaseShip, type: :model do
       it '正常登録ケース' do
         expect(@purchase_ship).to be_valid
       end
+      it 'buildingが空でも購入できる' do
+        @purchase_ship.building = ''
+        expect(@purchase_ship).to be_valid
+      end
     end
     context '異常ケース' do
       it '正しいクレジットカード(=token取得)でないと購入できない' do
         @purchase_ship.token = ''
         @purchase_ship.valid?
-        expect(@purchase_ship.errors.full_messages).to include('Token ：正しいクレジットカード情報をご入力ください。')
+        expect(@purchase_ship.errors.full_messages).to include("Token can't be blank")
       end
       it 'zipcodeが未入力だと購入できない' do
         @purchase_ship.zipcode = ''
         @purchase_ship.valid?
-        expect(@purchase_ship.errors.full_messages).to include('Zipcode ：郵便番号をご入力ください。')
+        expect(@purchase_ship.errors.full_messages).to include('Zipcode ：郵便番号はxxx-xxxxの形でご入力ください。')
       end
       it 'zipcodeがハイフンを含まないと購入できない' do
         @purchase_ship.zipcode = '1234567'
@@ -34,17 +38,17 @@ RSpec.describe PurchaseShip, type: :model do
       it 'cityが未入力だと購入できない' do
         @purchase_ship.city = ''
         @purchase_ship.valid?
-        expect(@purchase_ship.errors.full_messages).to include('City ：市区町村をご入力ください。')
+        expect(@purchase_ship.errors.full_messages).to include("City can't be blank")
       end
       it 'blockが未入力だと購入できない' do
         @purchase_ship.block = ''
         @purchase_ship.valid?
-        expect(@purchase_ship.errors.full_messages).to include('Block ：番地をご入力ください。')
+        expect(@purchase_ship.errors.full_messages).to include("Block can't be blank")
       end
       it 'phoneが未入力だと購入できない' do
         @purchase_ship.phone = ''
         @purchase_ship.valid?
-        expect(@purchase_ship.errors.full_messages).to include('Phone ：電話番号をご入力ください。')
+        expect(@purchase_ship.errors.full_messages).to include('Phone ：電話番号は11桁以内の半角数字でご入力ください。')
       end
       it 'phoneが12桁以上の数字だと購入できない' do
         @purchase_ship.phone = '123456789012'
