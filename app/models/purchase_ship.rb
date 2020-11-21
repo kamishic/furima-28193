@@ -14,6 +14,7 @@ class PurchaseShip
     validates :token
   end
 
+  
   validates :prefecture_id, numericality: { other_than: 0, message: '：都道府県をご入力ください。' }
 
   def save(params)
