@@ -1,6 +1,7 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
   before_action :set_product, only: [:index, :create]
+  before_action :soldout?, only: [:index, :create]
 
   def index
     redirect_to root_path if @product.user.id == current_user.id
@@ -24,5 +25,11 @@ class PurchasesController < ApplicationController
 
   def purchase_ship_params
     params.permit(:zipcode, :prefecture_id, :city, :block, :building, :phone, :product_id, :token).merge(user_id: current_user.id, price: @product.price)
+  end
+
+  def soldout?
+    if @product.purchase
+      redirect_to root_path
+    end
   end
 end
