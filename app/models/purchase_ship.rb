@@ -17,8 +17,6 @@ class PurchaseShip
   validates :prefecture_id, numericality: { other_than: 0, message: '：都道府県をご入力ください。' }
 
   def save(params)
-    return if invalid?
-
     purchase_params = params.slice(:user_id, :product_id)
     ship_params = params.slice(:zipcode, :prefecture_id, :city, :block, :building, :phone)
     payjp_params = params.slice(:token, :price)
